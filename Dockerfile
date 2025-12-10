@@ -10,14 +10,10 @@ RUN python -m venv /opt/venv \
 
 FROM python:3.8-slim
 COPY --from=builder /opt/venv /opt/venv
-COPY --from=builder /src/scripts/docker-entrypoint.sh /entrypoint.sh
 
 ENV TZ="Asia/Shanghai"
 ENV EK_IN_DOCKER="1"
-
-WORKDIR /app
-RUN chmod +x /entrypoint.sh \
-    && touch config.toml
 ENV PATH="/opt/venv/bin:$PATH"
 
-ENTRYPOINT ["/entrypoint.sh"]
+WORKDIR /app
+RUN touch config.toml
