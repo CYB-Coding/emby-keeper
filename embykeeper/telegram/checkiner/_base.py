@@ -283,11 +283,6 @@ class BotCheckin(BaseBotCheckin):
                 return self.ctx.finish(RunStatus.IGNORE, "从未与该会话交流")
 
         while True:
-            if self.additional_auth:
-                for a in self.additional_auth:
-                    if not await Link(self.client).auth(a, log_func=self.log.info):
-                        return self.ctx.finish(RunStatus.IGNORE, "需要额外认证")
-
             if not self.init_first:
                 if not await self.init():
                     self.log.warning(f"初始化错误.")
